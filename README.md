@@ -37,7 +37,6 @@ An **open-source, AI-powered WhatsApp self-bot** built with **Bun** and **Elysia
 
 ---
 
----
 
 ## 🔁 How It Works (Flow)
 
