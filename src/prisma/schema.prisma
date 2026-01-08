@@ -1,0 +1,158 @@
+
+generator client {
+  provider = "prisma-client"
+  output   = "./generated/prisma"
+  
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum MessageKind {
+  TEXT
+  AUDIO
+}
+
+enum ReminderSource {
+  MANUAL
+  AI
+}
+
+enum ReminderStatus {
+  ACTIVE
+  DONE
+  CANCELED
+}
+
+enum NotificationType {
+  ONE_DAY_BEFORE
+  FIVE_HOURS_BEFORE
+  ON_TIME
+}
+
+enum DeliveryStatus {
+  PENDING
+  SENT
+  FAILED
+}
+
+model User {
+  id        String   @id @default(cuid())
+  phoneE164 String   @unique
+  name      String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  waThreads     WaThread[]
+  reminders     Reminder[]
+  calendarLinks CalendarLink[]
+}
+
+model WaThread {
+  id        String   @id @default(cuid())
+  userId    String
+  waChatId  String  
+  title     String?  
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user     User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messages WaMessage[]
+  reminders Reminder[]
+
+  @@unique([userId, waChatId])
+  @@index([userId])
+}
+
+model WaMessage {
+  id        String      @id @default(cuid())
+  threadId  String
+  kind      MessageKind
+  direction String
+  waMsgId   String?
+  text      String?
+  mediaUrl  String?
+  sentAt    DateTime
+
+  createdAt DateTime @default(now())
+
+  thread    WaThread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+
+  createdReminders Reminder[] @relation("ReminderCreatedFromMessage")
+
+  @@index([threadId, sentAt])
+  @@index([waMsgId])
+}
+
+model Reminder {
+  id          String         @id @default(cuid())
+  userId      String
+  threadId    String?
+  source      ReminderSource @default(AI)
+  status      ReminderStatus @default(ACTIVE)
+
+  title       String
+  notes       String?
+  dueAt       DateTime
+
+  createdFromMessageId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  thread     WaThread? @relation(fields: [threadId], references: [id], onDelete: SetNull)
+
+  createdFromMessage WaMessage? @relation("ReminderCreatedFromMessage", fields: [createdFromMessageId], references: [id], onDelete: SetNull)
+
+  notifications ReminderNotification[]
+
+  @@index([userId, dueAt])
+  @@index([threadId])
+  @@index([status])
+}
+
+model ReminderNotification {
+  id         String           @id @default(cuid())
+  reminderId String
+  type       NotificationType
+  scheduledAt DateTime        
+  status     DeliveryStatus   @default(PENDING)
+
+
+  payloadText String?
+
+  sentAt     DateTime?
+  error      String?
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  reminder   Reminder @relation(fields: [reminderId], references: [id], onDelete: Cascade)
+
+  @@unique([reminderId, type])
+  @@index([scheduledAt, status])
+}
+
+model CalendarLink {
+  id        String   @id @default(cuid())
+  userId    String
+
+  provider  String   
+  externalId String? 
+
+  accessTokenEnc  String?
+  refreshTokenEnc String?
+  expiresAt       DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([provider])
+}
