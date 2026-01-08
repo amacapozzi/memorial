@@ -1,137 +1,52 @@
-# Bun Elysia Modular Starter
+# 🤖 WhatsApp AI Self-Bot (Bun + Elysia)
 
-A **production-ready starter template** for building scalable APIs using **Bun + Elysia**, following a **modular, clean architecture** approach with modern tooling.
+An **open-source, AI-powered WhatsApp self-bot** built with **Bun** and **Elysia**, designed to understand natural language messages, transcribe audio, schedule reminders, sync with calendars, and send intelligent, contextual notifications.
 
-This repository is designed to be:
-
-- easy to understand
-- easy to extend
-- safe to scale
-- strict but not painful
+> Think of it as a **personal assistant living inside WhatsApp**.
 
 ---
 
 ## ✨ Features
 
-- ⚡ **Bun** – ultra-fast JavaScript runtime
-- 🧠 **Elysia** – minimal and high-performance web framework
-- 🧩 **Modular architecture (feature-based)**
-- 🧼 Clean code & separation of concerns
-- 🧭 Import aliases (`@app`, `@shared`, `@modules`)
-- ✅ **TypeScript (strict mode)**
-- 🧪 Environment validation with **Zod**
-- 🧹 **ESLint (TypeScript-aware)**
-- 🎨 **Prettier**
-- 🪝 **Husky + lint-staged**
-- 📏 **commitlint (Conventional Commits)**
+- 🧠 **AI Message Understanding**  
+  Detects reminders, meetings, exams, and important tasks from natural language.
+
+- 🎙 **Audio → Text Transcription**  
+  Automatically converts voice notes into text for processing.
+
+- ⏰ **Smart Reminders & Scheduling**  
+  Sends notifications:
+  - 1 day before  
+  - 5 hours before  
+  - Exactly at the scheduled time
+
+- 📅 **Calendar Integration**  
+  Creates and updates calendar events automatically.
+
+- 💬 **Contextual AI Notifications**  
+  Generates motivational or encouraging messages for:
+  - Exams  
+  - Interviews  
+  - Important events
+
+- 🧩 **Modular Architecture**  
+  Built on a clean, scalable structure inspired by Clean Architecture.
+
+- ⚡ **Bun + Elysia Performance**  
+  Extremely fast startup, low memory usage, modern DX.
 
 ---
 
-## 📁 Project Structure
-
-src/
-├─ app/ # App bootstrap & composition root
-│ ├─ container.ts
-│ ├─ server.ts
-│ └─ index.ts
-│
-├─ modules/ # Feature-based modules
-│ └─ health/
-│ ├─ domain/
-│ ├─ application/
-│ ├─ infrastructure/
-│ └─ index.ts
-│
-└─ shared/ # Cross-cutting concerns
-├─ config/
-├─ constants/
-├─ env/
-├─ logger/
-└─ errors/
-
-### Architecture rules (important)
-
-- `app/` **only wires things together**
-- `modules/` contain business logic and features
-- `shared/` contains reusable, global utilities
-- `modules` **must not depend on `app`**
-- business logic never depends on HTTP or framework code
-
 ---
 
-## 🚀 Getting Started
+## 🔁 How It Works (Flow)
 
-### 1. Install dependencies
+1. A user sends a message or audio on WhatsApp  
+2. Audio is transcribed (if needed)  
+3. AI extracts intent, date, and context  
+4. A reminder is created and scheduled  
+5. Calendar event is synced  
+6. Notifications are sent at the right time  
+7. If needed, AI generates motivational messages
 
-```bash
-bun install
-
-2. Setup environment variables
-cp .env.example .env
-
-3. Run in development mode
-bun dev
-
-
-The server will start at:
-
-http://localhost:3000
-
-🧪 Scripts
-Command	Description
-bun dev	Start dev server (watch mode)
-bun start	Start production server
-bun lint	Run ESLint (TypeScript-aware)
-bun lint:fix	Fix lint issues automatically
-bun typecheck	Run TypeScript type checking
-🧩 Creating a New Module
-
-Create a folder inside src/modules
-
-modules/users/
-├─ domain/          # Business rules (pure)
-├─ application/     # Use cases
-├─ infrastructure/  # HTTP routes, DB adapters
-└─ index.ts
-
-
-Export an Elysia plugin from index.ts
-
-Register the module in app/container.ts
-
-Each module should be self-contained and portable.
-
-🧠 Request Flow
-HTTP (Elysia route)
-   ↓
-Application (use case)
-   ↓
-Domain (business rules)
-   ↓
-Infrastructure (DB / external services)
-   ↓
-Response
-
-🧾 Commit Convention
-
-This project enforces Conventional Commits:
-
-feat: add user authentication
-fix: handle invalid token
-refactor: simplify health module
-
-
-Commits are validated automatically via Husky + commitlint.
-
-🛠️ Recommended Add-ons
-
-@elysiajs/swagger – API documentation
-
-@elysiajs/jwt – Authentication
-
-@elysiajs/cors / @elysiajs/helmet – Security
-
-pino – Production-grade logging
-
-drizzle / prisma – Database layer
-```
+---
