@@ -375,6 +375,7 @@ export type FieldRef<Model, FieldType> = runtime.FieldRef<Model, FieldType>;
 type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRef<Model, FieldType>;
 
 export const ModelName = {
+  WaSession: "WaSession",
   User: "User",
   WaThread: "WaThread",
   WaMessage: "WaMessage",
@@ -401,6 +402,7 @@ export type TypeMap<
   };
   meta: {
     modelProps:
+      | "waSession"
       | "user"
       | "waThread"
       | "waMessage"
@@ -410,6 +412,80 @@ export type TypeMap<
     txIsolationLevel: TransactionIsolationLevel;
   };
   model: {
+    WaSession: {
+      payload: Prisma.$WaSessionPayload<ExtArgs>;
+      fields: Prisma.WaSessionFieldRefs;
+      operations: {
+        findUnique: {
+          args: Prisma.WaSessionFindUniqueArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WaSessionPayload> | null;
+        };
+        findUniqueOrThrow: {
+          args: Prisma.WaSessionFindUniqueOrThrowArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WaSessionPayload>;
+        };
+        findFirst: {
+          args: Prisma.WaSessionFindFirstArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WaSessionPayload> | null;
+        };
+        findFirstOrThrow: {
+          args: Prisma.WaSessionFindFirstOrThrowArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WaSessionPayload>;
+        };
+        findMany: {
+          args: Prisma.WaSessionFindManyArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WaSessionPayload>[];
+        };
+        create: {
+          args: Prisma.WaSessionCreateArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WaSessionPayload>;
+        };
+        createMany: {
+          args: Prisma.WaSessionCreateManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        createManyAndReturn: {
+          args: Prisma.WaSessionCreateManyAndReturnArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WaSessionPayload>[];
+        };
+        delete: {
+          args: Prisma.WaSessionDeleteArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WaSessionPayload>;
+        };
+        update: {
+          args: Prisma.WaSessionUpdateArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WaSessionPayload>;
+        };
+        deleteMany: {
+          args: Prisma.WaSessionDeleteManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        updateMany: {
+          args: Prisma.WaSessionUpdateManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        updateManyAndReturn: {
+          args: Prisma.WaSessionUpdateManyAndReturnArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WaSessionPayload>[];
+        };
+        upsert: {
+          args: Prisma.WaSessionUpsertArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WaSessionPayload>;
+        };
+        aggregate: {
+          args: Prisma.WaSessionAggregateArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.AggregateWaSession>;
+        };
+        groupBy: {
+          args: Prisma.WaSessionGroupByArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.WaSessionGroupByOutputType>[];
+        };
+        count: {
+          args: Prisma.WaSessionCountArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.WaSessionCountAggregateOutputType> | number;
+        };
+      };
+    };
     User: {
       payload: Prisma.$UserPayload<ExtArgs>;
       fields: Prisma.UserFieldRefs;
@@ -897,6 +973,16 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel =
   (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel];
 
+export const WaSessionScalarFieldEnum = {
+  id: "id",
+  data: "data",
+  createdAt: "createdAt",
+  updatedAt: "updatedAt"
+} as const;
+
+export type WaSessionScalarFieldEnum =
+  (typeof WaSessionScalarFieldEnum)[keyof typeof WaSessionScalarFieldEnum];
+
 export const UserScalarFieldEnum = {
   id: "id",
   phoneE164: "phoneE164",
@@ -989,12 +1075,26 @@ export const SortOrder = {
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder];
 
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const;
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput];
+
 export const QueryMode = {
   default: "default",
   insensitive: "insensitive"
 } as const;
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode];
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const;
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter];
 
 export const NullsOrder = {
   first: "first",
@@ -1016,6 +1116,16 @@ export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 
  * Reference to a field of type 'String[]'
  */
 export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, "String[]">;
+
+/**
+ * Reference to a field of type 'Json'
+ */
+export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, "Json">;
+
+/**
+ * Reference to a field of type 'QueryMode'
+ */
+export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, "QueryMode">;
 
 /**
  * Reference to a field of type 'DateTime'
@@ -1220,6 +1330,7 @@ export type PrismaClientOptions = (
   comments?: runtime.SqlCommenterPlugin[];
 };
 export type GlobalOmitConfig = {
+  waSession?: Prisma.WaSessionOmit;
   user?: Prisma.UserOmit;
   waThread?: Prisma.WaThreadOmit;
   waMessage?: Prisma.WaMessageOmit;

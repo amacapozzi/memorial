@@ -1,5 +1,5 @@
 {
-  "name": "Memorial AI Bot",
+  "name": "memorial-ai-bot",
   "version": "1.0.50",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -23,6 +23,7 @@
     "@prisma/client": "^7.2.0",
     "bun-elysia-modular-starter": ".",
     "elysia": "latest",
+    "memorial-ai-bot": ".",
     "pg": "^8.16.3",
     "prismabox": "^1.1.26"
   },
@@ -43,6 +44,7 @@
     "prettier": "^3.7.4",
     "prisma": "^7.2.0",
     "typescript": "^5.9.3",
+    "whatsapp-web.js": "^1.34.4",
     "zod": "^4.2.1"
   },
   "module": "src/index.js"

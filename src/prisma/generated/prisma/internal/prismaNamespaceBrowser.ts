@@ -48,6 +48,7 @@ export const JsonNull = runtime.JsonNull;
 export const AnyNull = runtime.AnyNull;
 
 export const ModelName = {
+  WaSession: "WaSession",
   User: "User",
   WaThread: "WaThread",
   WaMessage: "WaMessage",
@@ -71,6 +72,16 @@ export const TransactionIsolationLevel = {
 
 export type TransactionIsolationLevel =
   (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel];
+
+export const WaSessionScalarFieldEnum = {
+  id: "id",
+  data: "data",
+  createdAt: "createdAt",
+  updatedAt: "updatedAt"
+} as const;
+
+export type WaSessionScalarFieldEnum =
+  (typeof WaSessionScalarFieldEnum)[keyof typeof WaSessionScalarFieldEnum];
 
 export const UserScalarFieldEnum = {
   id: "id",
@@ -164,12 +175,26 @@ export const SortOrder = {
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder];
 
+export const JsonNullValueInput = {
+  JsonNull: "JsonNull"
+} as const;
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput];
+
 export const QueryMode = {
   default: "default",
   insensitive: "insensitive"
 } as const;
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode];
+
+export const JsonNullValueFilter = {
+  DbNull: "DbNull",
+  JsonNull: "JsonNull",
+  AnyNull: "AnyNull"
+} as const;
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter];
 
 export const NullsOrder = {
   first: "first",

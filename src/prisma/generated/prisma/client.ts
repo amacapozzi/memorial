@@ -28,8 +28,8 @@ export * from "./enums";
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Users
- * const users = await prisma.user.findMany()
+ * // Fetch zero or more WaSessions
+ * const waSessions = await prisma.waSession.findMany()
  * ```
  *
  * Read more in our [docs](https://pris.ly/d/client).
@@ -42,6 +42,11 @@ export type PrismaClient<
 > = $Class.PrismaClient<LogOpts, OmitOpts, ExtArgs>;
 export { Prisma };
 
+/**
+ * Model WaSession
+ *
+ */
+export type WaSession = Prisma.WaSessionModel;
 /**
  * Model User
  *

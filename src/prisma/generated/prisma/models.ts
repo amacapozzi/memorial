@@ -7,6 +7,7 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from "./models/WaSession";
 export type * from "./models/User";
 export type * from "./models/WaThread";
 export type * from "./models/WaMessage";

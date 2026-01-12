@@ -17,6 +17,11 @@ export { Prisma };
 export * as $Enums from "./enums";
 export * from "./enums";
 /**
+ * Model WaSession
+ *
+ */
+export type WaSession = Prisma.WaSessionModel;
+/**
  * Model User
  *
  */
